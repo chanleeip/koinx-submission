@@ -1,16 +1,19 @@
 import { NextFunction, Response, Request } from 'express';
 import { CoinPriceModel } from '../models/model';
-
+import { COIN_IDS } from '../utils/utils';
 export async function getLatestData(
 	req: Request,
 	res: Response,
 	next: NextFunction
 ) {
 	try {
-            const coin=req.query.coin;
+            const coin=req.query.coin as string;
             if (!coin) {
-                res.status(400).json({ error: 'Missing coin parameter' });
+                return res.status(400).json({ error: 'Missing coin parameter' });
               }
+            if (!COIN_IDS.includes(coin) ){
+                return res.status(400).json({ error: 'Wrong coin' });
+            }
               console.log(coin)
             let doc= await CoinPriceModel.findOne({coin_id:coin}).sort({timestamp:-1})
             const priceChange = doc?.price_change_percentage_24h
