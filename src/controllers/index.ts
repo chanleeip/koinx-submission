@@ -1,0 +1,1 @@
+export { getLatestData } from "./getLatestdata";
