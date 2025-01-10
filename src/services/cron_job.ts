@@ -3,7 +3,8 @@ import { CRYPTO_LISTING_ENDPOINT, API_KEY_CRYPTO_LISTING, COIN_IDS } from '../ut
 import {CoinPriceModel} from "../models/model";
 interface CoinData {                    
     current_price: number;                  
-    market_cap: number;                                          
+    market_cap: number;     
+    price_change_percentage_24h:number                                     
   }
 
 
@@ -29,11 +30,13 @@ async function cronJob() {
         if (response.data) {
           const usdValue = response.data[0].current_price; 
         const marketCap = response.data[0].market_cap;  
+        const price_change=response.data[0].price_change_percentage_24h
           const Coin_data= new CoinPriceModel({
             coin_id:coin_id,
             usd_price:usdValue,
             timestamp:new Date(),
-            market_cap:marketCap
+            market_cap:marketCap,
+            price_change_percentage_24h:price_change
           })
           await Coin_data.save()
         }

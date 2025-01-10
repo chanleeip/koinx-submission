@@ -12,12 +12,10 @@ export async function getLatestData(
                 res.status(400).json({ error: 'Missing coin parameter' });
               }
               console.log(coin)
-            let docs = await CoinPriceModel.find({coin_id:coin}).sort({timestamp:-1}).limit(12).exec()
-            const firstDoc = docs[docs.length - 1];
-            const lastDoc = docs[0];
-            const priceChange = ((lastDoc.usd_price - firstDoc.usd_price) / firstDoc.usd_price) * 100;
-            const market_cap=lastDoc?.market_cap
-            const price=lastDoc?.usd_price
+            let doc= await CoinPriceModel.findOne({coin_id:coin}).sort({timestamp:-1})
+            const priceChange = doc?.price_change_percentage_24h
+            const market_cap=doc?.market_cap
+            const price=doc?.usd_price
             res.json({"24hChange":priceChange,marketCap:market_cap,price:price})
 		}
         catch (error) {
