@@ -11,6 +11,9 @@ const job = cron.schedule('0 */2 * * *', async ()=> {
 });
 connect();
 app.use(MainRouterV1)
+app.get('/',(req,res)=>{
+  res.send("Working ... Submission for koinx backend internship")
+})
 app.listen(port as number, '0.0.0.0', () => {
   console.log(`Server running at http://0.0.0.0:${port}`);
 });
