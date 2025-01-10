@@ -11,6 +11,6 @@ const job = cron.schedule('0 */2 * * *', async ()=> {
 });
 connect();
 app.use(MainRouterV1)
-  app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-  });
+app.listen(port as number, '0.0.0.0', () => {
+  console.log(`Server running at http://0.0.0.0:${port}`);
+});
