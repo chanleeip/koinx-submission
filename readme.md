@@ -43,5 +43,10 @@ MONGODB_URI='mongo-uri'
 npm run serve
 
 ```
+## Public Hosted API
+
+```
+https://koinx-submission-production.up.railway.app
+```
 
 
